@@ -3,9 +3,14 @@ import java.util.*;
 
 public class bullet extends Actor
 {
+    float dt;
     
     public void act()
     {
+        move(5);
+        dt += 0.1f;
+        setLocation(getX(), getY() + (int)dt);
+        
         if(Greenfoot.isKeyDown("e"))
         {
             Explode();
