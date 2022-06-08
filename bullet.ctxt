@@ -1,7 +1,9 @@
 #BlueJ class context
-comment0.target=bullet
-comment1.params=
-comment1.target=void\ act()
+comment0.target=Bullet
+comment1.params=id\ force
+comment1.target=Bullet(int,\ int)
 comment2.params=
-comment2.target=void\ Explode()
-numComments=3
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ Explode()
+numComments=4

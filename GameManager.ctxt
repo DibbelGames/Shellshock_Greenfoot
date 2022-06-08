@@ -1,7 +1,11 @@
 #BlueJ class context
 comment0.target=GameManager
-comment1.params=
-comment1.target=void\ act()
+comment1.params=a\ b\ c\ d
+comment1.target=GameManager(int,\ int,\ int,\ float)
 comment2.params=
 comment2.target=void\ NextTurn()
-numComments=3
+comment3.params=x
+comment3.target=int\ getYPos(int)
+comment4.params=x
+comment4.target=int\ getRot(int)
+numComments=5

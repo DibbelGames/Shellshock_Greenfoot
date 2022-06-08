@@ -1,7 +1,11 @@
 #BlueJ class context
-comment0.target=player
-comment1.params=id
-comment1.target=player(int)
+comment0.target=Player
+comment1.params=id\ b\ position
+comment1.target=Player(int,\ Barrel,\ Vector2)
 comment2.params=
 comment2.target=void\ act()
-numComments=3
+comment3.params=amount
+comment3.target=void\ Hit(int)
+comment4.params=
+comment4.target=void\ Shoot()
+numComments=5
