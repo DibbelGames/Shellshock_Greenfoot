@@ -5,7 +5,7 @@ public class Player extends Actor
 {
     public int id;
     public boolean myTurn;
-    private boolean dead;
+    public boolean gameOver;
     
     private Vector2 position;
     private int rotation;
@@ -18,7 +18,7 @@ public class Player extends Actor
     private int force = 100;
     private int fuel;
     private int maxFuel = 150;
-    private int health = 5;
+    private int health = 1;
         
     public Player(int id, Barrel b, Vector2 position)
     {
@@ -84,26 +84,26 @@ public class Player extends Actor
         barrel.setRotation(angle);
         
         /*
-         * Die Informationen zum Spieler werden auf dem Bildschirm angezeigt: (GreenfootImage)
+         * Die Informationen zum Spieler werden auf dem Bildschirm angezeigt: (GreenfootImage) [Nur falls das Spiel noch im Gange ist. Andernfalls sollen die Informationen nicht aktualisiert werden]
          * - die Infos über Spieler 0 links
          * - die Infos über Spieler 1 rechts
          */
-        if(id == 0)
+        if(id == 0 && !gameOver)
         {
             /*getWorld().showText ("Leben: " + health, 80, 50);
             getWorld().showText ("Power: " + force, 80, 75);
             getWorld().showText ("Tank: " + fuel, 80, 100);*/
             
-            GreenfootImage infos = new GreenfootImage(  "Leben: " + health + "\n  Power: " + force + "  \nTank: " + fuel, 30, Color.WHITE, new Color(20, 20, 20, 255));
+            GreenfootImage infos = new GreenfootImage(  "Leben: " + health + "\n  Power: " + force + "  \nTank: " + fuel, 30, Color.WHITE, new Color(40, 40, 40, 255));
             getWorld().getBackground().drawImage(infos, 60, 50);
         }
-        else if(id == 1)
+        else if(id == 1 && !gameOver)
         {
             /*getWorld().showText ("Leben: " + health, 1200, 50);
             getWorld().showText ("Power: " + force, 1200, 75);
             getWorld().showText ("Tank: " + fuel, 1200, 100);*/
             
-            GreenfootImage infos = new GreenfootImage("  Leben: " + health + "\n  Power: " + force + "  \nTank: " + fuel, 30, Color.WHITE, new Color(20, 20, 20, 255));
+            GreenfootImage infos = new GreenfootImage("  Leben: " + health + "\n  Power: " + force + "  \nTank: " + fuel, 30, Color.WHITE, new Color(40, 40, 40, 255));
             getWorld().getBackground().drawImage(infos, 1080, 50);
         }
         
@@ -127,6 +127,8 @@ public class Player extends Actor
         {
             //falls der Spieler 0 oder weniger Leben besitzt, stirbt dieser
             //Das Projektil wird zerstört, sodass der Spieler die Animation ausführt und nicht das Projektil selbst
+            for(Player p : getWorld().getObjects(Player.class))
+                p.gameOver = true;
             getWorld().removeObject(b);
             Die();
         }else //sollte der Spieler noch nicht verloren haben, ist der andere Spieler am Zug
@@ -147,8 +149,8 @@ public class Player extends Actor
          *dies wird mittig-oben angezeigt
          */
         int otherId = (1 - id) + 1;    
-        GreenfootImage gg = new GreenfootImage("Spieler " + otherId  + " hat gewonnen!", 80, Color.WHITE, new Color(0, 0, 0, 0));
-        getWorld().getBackground().drawImage(gg, (getWorld().getWidth()-gg.getWidth())/2, 80);
+        GreenfootImage gg = new GreenfootImage("                 Spieler " + otherId  + " hat gewonnen!               ", 100, Color.WHITE, new Color(0, 0, 0, 255));
+        getWorld().getBackground().drawImage(gg, (getWorld().getWidth()-gg.getWidth())/2, 45);
         
         //der GameManagaer wird informiert, dass das Spiel vorbei ist
         getWorld().getObjects(GameManager.class).get(0).GameOver();
