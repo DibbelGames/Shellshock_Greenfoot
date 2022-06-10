@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=Tank
-comment1.params=world
-comment1.target=Tank(MyWorld)
-comment2.params=
-comment2.target=void\ act()
-numComments=3

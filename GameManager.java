@@ -5,6 +5,7 @@ public class GameManager extends Actor
 {
     // wer ist am Zug?
     public int turn;
+    private boolean gameOver;
     
     //Liste an errechneten Koordinaten (Terrain)
     public Vector2[] positions = new Vector2[1280];
@@ -28,6 +29,15 @@ public class GameManager extends Actor
         }
     }
     
+    public void act()
+    {
+        //sobald ein Spieler gestorben ist (also die Runde beendet wurde) kann "r" gedrückt werden, sodass eine neue Runde starten kann
+        if(gameOver && Greenfoot.isKeyDown("r"))
+        {
+            Greenfoot.setWorld(new GameWorld());
+        }
+    }
+    
     public void NextTurn()
     {
         turn = 1-turn; // 0->1; 1->0
@@ -40,9 +50,17 @@ public class GameManager extends Actor
                 p.myTurn = false;
             }
         }
+    }
+    
+    //wenn diese Methode gecallt wird, ist es möglich eine neue Runde zu starten. Ein Hilfetext wird angezeigt
+    public void GameOver()
+    {
+        //um anzuzeigen dass nun eine neue Runde gestarted werden kann, wird ein trabsparentes greenfootimage mit einem hilfetext erstellt
+        //dies wird mittig unter dem Siegestext angezeigt
+        GreenfootImage rr = new GreenfootImage("Drücke -R- für eine Revanche.", 50, Color.WHITE, new Color(0, 0, 0, 0));
+        getWorld().getBackground().drawImage(rr, (getWorld().getWidth()-rr.getWidth())/2, 160);
         
-        //um ein direktes schießen bei zu lang gedrückter Leertaste zu vermeiden, wird das Spiel für einen kurzen Moment angehalten
-        Greenfoot.delay(10);
+        gameOver = true;
     }
     
     //auf anfrage wird der Funktionswert zu einer gegeben X-Stelle zurückgegeben

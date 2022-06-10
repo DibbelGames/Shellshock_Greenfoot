@@ -29,12 +29,28 @@ public class Bullet extends Actor
             Explode();
     }
     
+    int explosions = 0;
     void Explode()
     {       
+        Greenfoot.playSound("damage.wav");
         //der nächste Zug beginnt
-        
+        if(explosions == 0)
+            Animation();
+    }
+    
+    //Die Animation soll nur einmal ausgeführt werden
+    void Animation()
+    {
+        explosions++;
+        //9 bilder der explosions-animation werden nacheinander abgespielt
+        for(int i = 0; i < 10; i++)
+        {
+            //die bild dateien heißen: "explosion_00, explosion_01" usw.
+            this.setImage("explosion_0" + i + ".png");
+            Greenfoot.delay(3);
+        }
+        //Der nächste Zug beginnt
         getWorld().getObjects(GameManager.class).get(0).NextTurn();
-        
         //Projektil wird entfernt
         getWorld().removeObject(this);
     }
